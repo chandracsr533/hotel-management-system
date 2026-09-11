@@ -1,160 +1,159 @@
 # 🏨 Aurum Hotel Management System
 
-A complete Hotel Management System developed using **Python, Flask, MySQL, Bootstrap 5, HTML, CSS, and JavaScript**.
+A web-based **Hotel Management System** built with **Python, Flask, MySQL, Bootstrap 5, HTML, CSS, and JavaScript**.
+
+The system provides an admin interface for managing hotel customers, rooms, bookings, billing, invoices, and reports from a centralized dashboard.
 
 ---
 
-## 📌 Features
+## 📌 Project Overview
 
-### 🔐 Authentication
-- Admin Login
-- Session-based Authentication
-- Secure Logout
+The **Aurum Hotel Management System** is designed to simplify common hotel administration tasks through a web-based application.
+
+Administrators can manage customer information, maintain room details, create and cancel bookings, calculate bills with GST, generate invoices, and view hotel statistics and reports.
+
+The application uses **Flask** for the backend, **MySQL** for data storage, **Jinja2** templates for dynamic web pages, and **Bootstrap 5** for the user interface.
+
+---
+
+## ✨ Features
+
+### 🔐 Admin Authentication
+
+- Admin login
+- Session-based authentication
+- Protected application routes
+- Secure logout
+- Password hashing using Werkzeug
+- Environment-based secret key configuration
 
 ### 👥 Customer Management
-- Add Customer
-- View Customers
-- Edit Customer
-- Delete Customer
-- Search Customer
 
-### 🛏 Room Management
-- Add Room
-- View Rooms
-- Edit Room
-- Delete Room
-- Search Rooms
-- Room Availability Status
+- Add customers
+- View customer records
+- Edit customer information
+- Delete customers
+- Search customers
+- Store customer contact and address details
+
+### 🛏️ Room Management
+
+- Add rooms
+- View room details
+- Edit room information
+- Delete rooms
+- Search rooms
+- Store room type and pricing
+- Track room floor and description
+- Maintain room availability status
+- Prevent duplicate room numbers
 
 ### 📅 Booking Management
-- Add Booking
-- Cancel Booking
-- Search Booking
-- Automatic Room Allocation
-- Automatic Room Status Update
 
-### 💰 Billing
-- Automatic Bill Generation
-- GST Calculation
-- Invoice Generation
-- Print Invoice
+- Create hotel bookings
+- Select customers and rooms
+- Check-in and check-out date validation
+- Calculate total stay duration automatically
+- Calculate booking amount automatically
+- Date-based room availability
+- Prevent overlapping bookings for the same room
+- Cancel bookings
+- Search bookings
+- Automatically update room status when applicable
 
-### 📊 Dashboard
-- Live Customer Count
-- Live Room Count
-- Live Booking Count
-- Revenue Summary
-- Available vs Booked Rooms
-- Charts
-- Recent Bookings
-- Recent Customers
+### 💰 Billing & Invoices
+
+- Automatic bill generation
+- Room charge calculation
+- 18% GST calculation
+- Grand total calculation
+- Invoice generation
+- Invoice details based on booking information
+- Print invoice functionality
+
+### 📊 Dashboard & Reports
+
+- Total customer count
+- Total room count
+- Total booking count
+- Revenue summary
+- Available room count
+- Booked room count
+- Recent bookings
+- Recent customers
+- Monthly revenue report
+- Booking status report
+- Room type report
+- Interactive charts using Chart.js
+- Printable reports
 
 ---
 
-## 🛠 Technologies Used
+## 🛠️ Technologies Used
 
-- Python
+### Backend
+
+- Python 3
 - Flask
 - MySQL
+- mysql-connector-python
+- Werkzeug
+- python-dotenv
+
+### Frontend
+
 - HTML5
 - CSS3
 - Bootstrap 5
 - JavaScript
+- Jinja2
+- Font Awesome
+
+### Data Visualization
+
 - Chart.js
 
 ---
 
-## 📂 Project Structure
+## 🏗️ Project Architecture
 
-```
-HotelManagement/
-│── app.py             # Flask Web Application & Routes
-│── schema.sql         # MySQL Database Schema & Seed Data
-│── create_admin.py    # Admin User Creation CLI Tool
-│── main.py            # Interactive Customer Management CLI
-│── database.py        # Database Connection & Query Helpers
-│── config.py          # Environment Configurations
-│── login.py           # Admin Authentication Logic
-│── customer.py        # Customer CRUD Operations
-│── room.py            # Room Management Logic
-│── booking.py         # Booking Lifecycle & Date Availability
-│── billing.py         # Billing & Invoice Generation
-│── dashboard.py       # Metrics & Analytics Queries
-│── requirements.txt   # Python Dependencies
+The project follows a modular structure where different Python files handle different parts of the application.
+
+```text
+hotel-management-system-flask-main/
 │
-├── templates/         # HTML Jinja2 Templates
-├── static/            # CSS, JavaScript & Static Images
-│   ├── css/
-│   ├── images/
+├── app.py                 # Flask application and routes
+├── config.py              # Environment configuration
+├── database.py            # MySQL connection and cursor handling
+├── login.py               # Admin authentication
+├── customer.py            # Customer CRUD and search operations
+├── room.py                # Room management operations
+├── booking.py             # Booking and availability logic
+├── billing.py             # Billing and invoice calculations
+├── dashboard.py           # Dashboard metrics and reports
+├── create_admin.py        # Admin account creation utility
 │
-└── README.md
-```
-
----
-
-## 🚀 How to Run
-
-1. Clone the repository:
-
-```bash
-git clone <repository-url>
-cd hotel-management-system-flask-main
-```
-
-2. Install dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
-3. Configure your MySQL credentials in `.env`:
-
-```env
-DB_HOST=localhost
-DB_PORT=3306
-DB_USER=root
-DB_PASSWORD=your_password
-DB_NAME=hotel_management
-SECRET_KEY=your_secret_key
-```
-
-4. Import the MySQL database schema:
-
-```bash
-mysql -u root -p < schema.sql
-```
-
-5. (Optional) Create or reset an Admin User:
-
-```bash
-python create_admin.py admin admin123
-```
-*Default login:* Username: `admin` | Password: `admin123`
-
-6. Run the Web Application:
-
-```bash
-python app.py
-```
-
-7. Open in your browser:
-
-```
-http://127.0.0.1:5000
-```
-
-*(Optional)* You can also run the terminal CLI utility:
-
-```bash
-python main.py
-```
-
----
-
-## 👨‍💻 Developed By
-
-**Suhail Shaik**
-
-MCA Student
-
-Python | Flask | MySQL Developer
+├── schema.sql             # MySQL database schema
+├── requirements.txt       # Python dependencies
+├── .gitignore             # Git ignored files
+├── README.md              # Project documentation
+│
+├── templates/             # Jinja2 HTML templates
+│   ├── base.html
+│   ├── login.html
+│   ├── dashboard.html
+│   ├── customers.html
+│   ├── add_customer.html
+│   ├── edit_customer.html
+│   ├── rooms.html
+│   ├── add_room.html
+│   ├── edit_room.html
+│   ├── bookings.html
+│   ├── add_booking.html
+│   ├── billing.html
+│   ├── invoice.html
+│   └── reports.html
+│
+└── static/
+    ├── css/               # Stylesheets
+    └── images/            # Static images
