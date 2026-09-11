@@ -13,10 +13,4 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 
 
-# HOST = "localhost"
-# PORT = 3306
-# USER = "root"
-# PASSWORD = "Chandra@333"
-# DATABASE = "hotel_management"
-
 

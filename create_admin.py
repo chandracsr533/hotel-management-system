@@ -39,7 +39,7 @@ if __name__ == "__main__":
         p = sys.argv[2]
     else:
         u = input("Enter admin username [default: admin]: ").strip() or "admin"
-        p = input("Enter admin password [default: admin123]: ").strip() or "admin123"
+    p = input("Enter admin password: ").strip()
 
     create_or_update_admin(u, p)
 
