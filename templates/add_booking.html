@@ -1,0 +1,135 @@
+{% extends 'dashboard_layout.html' %}
+
+{% block title %}Add Booking{% endblock %}
+
+{% block admin_content %}
+
+<div class="container mt-4">
+
+    <h2>Add Booking</h2>
+
+    <form method="POST">
+
+        <!-- CUSTOMER -->
+
+        <div class="mb-3">
+
+            <label>Customer</label>
+
+            <select name="customer_id" class="form-control" required>
+
+                {% for customer in customers %}
+
+                <option value="{{ customer[0] }}">
+                    {{ customer[1] }}
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+
+        <!-- CHECK IN -->
+
+        <div class="mb-3">
+
+            <label>Check In Date</label>
+
+            <input type="date" id="check_in_date" name="check_in_date" class="form-control" required>
+
+        </div>
+
+
+        <!-- CHECK OUT -->
+
+        <div class="mb-3">
+
+            <label>Check Out Date</label>
+
+            <input type="date" id="check_out_date" name="check_out_date" class="form-control" required>
+
+        </div>
+
+
+        <!-- ROOM -->
+
+        <div class="mb-3">
+
+            <label>Available Room</label>
+
+            <select name="room_id" class="form-control" required>
+
+                {% if rooms %}
+
+                {% for room in rooms %}
+
+                <option value="{{ room[0] }}">
+                    Room {{ room[1] }}
+                </option>
+
+                {% endfor %}
+
+                {% else %}
+
+                <option value="">
+                    No rooms available
+                </option>
+
+                {% endif %}
+
+            </select>
+
+        </div>
+
+
+        <!-- BUTTONS -->
+
+        <button type="submit" class="btn btn-success">
+
+            Save Booking
+
+        </button>
+        <button type="button" class="btn btn-primary" onclick="checkAvailability()">
+
+            Check Availability
+
+        </button>
+
+        <a href="/bookings" class="btn btn-secondary">
+
+            Cancel
+
+        </a>
+
+    </form>
+
+</div>
+
+<script>
+
+    function checkAvailability() {
+
+        const checkIn = document.getElementById("check_in_date").value;
+        const checkOut = document.getElementById("check_out_date").value;
+
+        if (!checkIn || !checkOut) {
+            alert("Please select both check-in and check-out dates.");
+            return;
+        }
+
+        if (checkOut <= checkIn) {
+            alert("Check-out date must be after check-in date.");
+            return;
+        }
+
+        window.location.href =
+            "/add_booking?check_in_date="
+            + checkIn
+            + "&check_out_date="
+            + checkOut;
+    }
+
+</script>
+{% endblock %}

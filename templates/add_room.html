@@ -1,0 +1,80 @@
+{% extends 'dashboard_layout.html' %}
+
+{% block title %}Add Room{% endblock %}
+
+{% block admin_content %}
+
+<div class="container mt-4">
+
+    <h2>Add Room</h2>
+
+    <form method="POST">
+
+        <div class="mb-3">
+            <label>Room Number</label>
+            <input type="text" name="room_number" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label>Room Type</label>
+
+            <select name="room_type" class="form-control">
+
+                <option>Single</option>
+                <option>Double</option>
+                <option>Suite</option>
+
+            </select>
+
+        </div>
+
+        <div class="mb-3">
+            <label>Room Price</label>
+
+            <input type="number" name="room_price" class="form-control">
+
+        </div>
+
+        <div class="mb-3">
+            <label>Status</label>
+
+            <select name="room_status" class="form-control">
+
+                <option>Available</option>
+                <option>Booked</option>
+
+            </select>
+
+        </div>
+
+        <div class="mb-3">
+            <label>Floor Number</label>
+
+            <input type="number" name="floor_number" class="form-control">
+
+        </div>
+
+        <div class="mb-3">
+            <label>Description</label>
+
+            <textarea name="room_description" class="form-control"></textarea>
+
+        </div>
+
+        <button class="btn btn-success">
+
+            Save Room
+
+        </button>
+
+        <a href="/rooms" class="btn btn-secondary">
+
+            Back
+
+        </a>
+
+    </form>
+
+</div>
+
+{% endblock %}

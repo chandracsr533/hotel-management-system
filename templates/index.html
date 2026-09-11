@@ -1,0 +1,229 @@
+{% extends 'base.html' %}
+
+{% block title %}Aurum Hotel{% endblock %}
+
+{% block content %}
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+
+    <div class="container">
+
+        <a class="navbar-brand fw-bold" href="/">
+            <i class="fa-solid fa-hotel"></i>
+            AURUM HOTEL
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+        <div class="collapse navbar-collapse" id="menu">
+
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#home">Home</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#services">Services</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#rooms">Rooms</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#about">About</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">Contact</a>
+                </li>
+
+                <li class="nav-item ms-3">
+                    <a href="/login" class="btn btn-warning px-4">
+                        <i class="fa-solid fa-user-lock"></i>
+                        Admin Login
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+<!-- ================= HERO ================= -->
+
+<section class="hero" id="home">
+
+    <div class="hero-overlay">
+
+        <div class="text-center text-white">
+
+            <h1 class="display-3 fw-bold">
+                Welcome To
+            </h1>
+
+            <h2 class="display-4 text-warning fw-bold">
+                AURUM HOTEL
+            </h2>
+
+            <p class="lead mt-3">
+                Experience Luxury Beyond Expectations
+            </p>
+
+            <div class="mt-4">
+
+                <a href="#rooms" class="btn btn-warning btn-lg me-3">
+                    Explore Rooms
+                </a>
+
+                <a href="/login" class="btn btn-outline-light btn-lg">
+                    Admin Login
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= SERVICES ================= -->
+
+<section class="py-5 bg-light" id="services">
+
+    <div class="container">
+
+        <h2 class="text-center mb-5">
+            Our Premium Services
+        </h2>
+
+        <div class="row text-center">
+
+            <div class="col-md-4 mb-4">
+                <i class="fa-solid fa-bed fa-3x text-warning mb-3"></i>
+                <h4>Luxury Rooms</h4>
+                <p>Elegant and comfortable rooms for every guest.</p>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <i class="fa-solid fa-utensils fa-3x text-warning mb-3"></i>
+                <h4>Restaurant</h4>
+                <p>Enjoy delicious cuisine prepared by expert chefs.</p>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <i class="fa-solid fa-person-swimming fa-3x text-warning mb-3"></i>
+                <h4>Swimming Pool</h4>
+                <p>Relax and refresh in our luxury pool.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= ROOMS ================= -->
+
+<section class="py-5" id="rooms">
+
+    <div class="container">
+
+        <h2 class="text-center mb-5">
+            Featured Rooms
+        </h2>
+
+        <div class="row">
+
+            <div class="col-md-4">
+
+                <div class="card shadow">
+
+                    <img src="{{ url_for('static', filename='images/room1.jpg') }}" class="card-img-top">
+
+                    <div class="card-body text-center">
+
+                        <h4>Single Room</h4>
+
+                        <h5 class="text-warning">₹1500 / Night</h5>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="card shadow">
+
+                    <img src="{{ url_for('static', filename='images/room2.jpg') }}" class="card-img-top">
+
+                    <div class="card-body text-center">
+
+                        <h4>Deluxe Room</h4>
+
+                        <h5 class="text-warning">₹2500 / Night</h5>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="card shadow">
+
+                    <img src="{{ url_for('static', filename='images/room3.jpg') }}" class="card-img-top">
+
+                    <div class="card-body text-center">
+
+                        <h4>Executive Suite</h4>
+
+                        <h5 class="text-warning">₹5000 / Night</h5>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="bg-dark text-white text-center py-4" id="contact">
+
+    <h4>AURUM HOTEL</h4>
+
+    <p>Luxury Beyond Expectations</p>
+
+    <p>
+        <i class="fa-solid fa-phone"></i> +91 7981978896
+        &nbsp;&nbsp;
+        <i class="fa-solid fa-envelope"></i> aurumhotel@gmail.com
+    </p>
+
+    <p class="mb-0">
+        © 2026 Aurum Hotel. All Rights Reserved.
+    </p>
+
+</footer>
+
+{% endblock %}

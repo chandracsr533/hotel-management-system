@@ -1,0 +1,229 @@
+{% extends 'dashboard_layout.html' %}
+
+{% block title %}Reports - Aurum Hotel{% endblock %}
+
+{% block admin_content %}
+
+<div class="container mt-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2>Hotel Reports</h2>
+            <p class="text-muted">
+                Overview of hotel bookings, rooms and revenue
+            </p>
+        </div>
+
+        <button onclick="window.print()" class="btn btn-dark">
+            <i class="fa-solid fa-print"></i>
+            Print Report
+        </button>
+    </div>
+
+
+    <!-- SUMMARY CARDS -->
+
+    <div class="row g-4 mb-4">
+
+        <div class="col-md-4">
+            <div class="card shadow p-4 text-center">
+                <h6>Total Customers</h6>
+                <h2>{{ summary.customers }}</h2>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow p-4 text-center">
+                <h6>Total Rooms</h6>
+                <h2>{{ summary.rooms }}</h2>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow p-4 text-center">
+                <h6>Total Bookings</h6>
+                <h2>{{ summary.bookings }}</h2>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow p-4 text-center">
+                <h6>Available Rooms</h6>
+                <h2>{{ summary.available }}</h2>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow p-4 text-center">
+                <h6>Booked Rooms</h6>
+                <h2>{{ summary.booked }}</h2>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow p-4 text-center">
+                <h6>Total Revenue</h6>
+                <h2>₹{{ "%.2f"|format(summary.revenue) }}</h2>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- REVENUE REPORT -->
+
+    <div class="card shadow p-4 mb-4">
+
+        <h4 class="mb-3">
+            Monthly Revenue
+        </h4>
+
+        <canvas id="revenueChart"></canvas>
+
+    </div>
+
+
+    <!-- BOOKING STATUS -->
+
+    <div class="card shadow p-4 mb-4">
+
+        <h4 class="mb-3">
+            Booking Status
+        </h4>
+
+        <canvas id="bookingChart"></canvas>
+
+    </div>
+
+
+    <!-- ROOM TYPE REPORT -->
+
+    <div class="card shadow p-4 mb-4">
+
+        <h4 class="mb-3">
+            Rooms by Type
+        </h4>
+
+        <canvas id="roomTypeChart"></canvas>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    // ================= REVENUE CHART =================
+
+    const revenueLabels = [
+        {% for row in revenue %}
+    "{{ row[0] }}",
+        {% endfor %}
+    ];
+
+    const revenueData = [
+        {% for row in revenue %}
+    { { row[1] } },
+    {% endfor %}
+    ];
+
+
+    new Chart(
+        document.getElementById('revenueChart'),
+        {
+            type: 'bar',
+
+            data: {
+                labels: revenueLabels,
+
+                datasets: [{
+                    label: 'Revenue (₹)',
+                    data: revenueData
+                }]
+            },
+
+            options: {
+                responsive: true,
+
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        }
+    );
+
+
+    // ================= BOOKING STATUS CHART =================
+
+    const bookingLabels = [
+        {% for row in booking_status %}
+    "{{ row[0] }}",
+        {% endfor %}
+    ];
+
+    const bookingData = [
+        {% for row in booking_status %}
+    { { row[1] } },
+    {% endfor %}
+    ];
+
+
+    new Chart(
+        document.getElementById('bookingChart'),
+        {
+            type: 'pie',
+
+            data: {
+                labels: bookingLabels,
+
+                datasets: [{
+                    data: bookingData
+                }]
+            },
+
+            options: {
+                responsive: true
+            }
+        }
+    );
+
+
+    // ================= ROOM TYPE CHART =================
+
+    const roomTypeLabels = [
+        {% for row in room_types %}
+    "{{ row[0] }}",
+        {% endfor %}
+    ];
+
+    const roomTypeData = [
+        {% for row in room_types %}
+    { { row[1] } },
+    {% endfor %}
+    ];
+
+
+    new Chart(
+        document.getElementById('roomTypeChart'),
+        {
+            type: 'doughnut',
+
+            data: {
+                labels: roomTypeLabels,
+
+                datasets: [{
+                    data: roomTypeData
+                }]
+            },
+
+            options: {
+                responsive: true
+            }
+        }
+    );
+
+</script>
+
+{% endblock %}

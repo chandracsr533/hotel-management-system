@@ -1,0 +1,76 @@
+{% extends 'dashboard_layout.html' %}
+
+{% block title %}Edit Room{% endblock %}
+
+{% block admin_content %}
+
+<div class="container mt-4">
+
+    <h2>Edit Room</h2>
+
+    <form method="POST">
+
+        <div class="mb-3">
+            <label>Room Number</label>
+            <input type="text" name="room_number" class="form-control" value="{{ room[1] }}">
+        </div>
+
+        <div class="mb-3">
+            <label>Room Type</label>
+
+            <select name="room_type" class="form-control">
+
+                <option {% if room[2]=='Single' %}selected{% endif %}>Single</option>
+                <option {% if room[2]=='Double' %}selected{% endif %}>Double</option>
+                <option {% if room[2]=='Suite' %}selected{% endif %}>Suite</option>
+
+            </select>
+
+        </div>
+
+        <div class="mb-3">
+            <label>Room Price</label>
+
+            <input type="number" name="room_price" class="form-control" value="{{ room[3] }}">
+
+        </div>
+
+        <div class="mb-3">
+            <label>Status</label>
+
+            <select name="room_status" class="form-control">
+
+                <option {% if room[4]=='Available' %}selected{% endif %}>Available</option>
+                <option {% if room[4]=='Booked' %}selected{% endif %}>Booked</option>
+
+            </select>
+
+        </div>
+
+        <div class="mb-3">
+            <label>Floor Number</label>
+
+            <input type="number" name="floor_number" class="form-control" value="{{ room[5] }}">
+
+        </div>
+
+        <div class="mb-3">
+            <label>Description</label>
+
+            <textarea name="room_description" class="form-control">{{ room[6] }}</textarea>
+
+        </div>
+
+        <button class="btn btn-success">
+            Update Room
+        </button>
+
+        <a href="/rooms" class="btn btn-secondary">
+            Cancel
+        </a>
+
+    </form>
+
+</div>
+
+{% endblock %}

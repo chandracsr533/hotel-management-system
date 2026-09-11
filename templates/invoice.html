@@ -1,0 +1,163 @@
+{% extends 'dashboard_layout.html' %}
+
+{% block title %}Invoice{% endblock %}
+
+{% block admin_content %}
+
+<div class="container mt-5">
+
+    <div class="card shadow-lg">
+
+        <div class="card-body p-5">
+
+            <div class="text-center">
+
+                <h1 class="text-warning">
+                    <i class="fa-solid fa-hotel"></i>
+                    AURUM HOTEL
+                </h1>
+
+                <h4>HOTEL TAX INVOICE</h4>
+
+                <hr>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <p><strong>Invoice No :</strong>
+                        INV-{{ bill.booking_id }}
+                    </p>
+
+                    <p><strong>Customer :</strong>
+                        {{ bill.customer }}
+                    </p>
+
+                    <p><strong>Room Number :</strong>
+                        {{ bill.room }}
+                    </p>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <p><strong>Check In :</strong>
+                        {{ bill.checkin }}
+                    </p>
+
+                    <p><strong>Check Out :</strong>
+                        {{ bill.checkout }}
+                    </p>
+
+                    <p><strong>Total Days :</strong>
+                        {{ bill.days }}
+                    </p>
+
+                </div>
+
+            </div>
+
+            <hr>
+
+            <table class="table table-bordered">
+
+                <thead class="table-dark">
+
+                    <tr>
+
+                        <th>Description</th>
+                        <th class="text-end">Amount</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>Room Charges</td>
+
+                        <td class="text-end">
+
+                            ₹ {{ "%.2f"|format(bill.amount) }}
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>GST (18%)</td>
+
+                        <td class="text-end">
+
+                            ₹ {{ "%.2f"|format(bill.gst) }}
+
+                        </td>
+
+                    </tr>
+
+                    <tr class="table-warning">
+
+                        <th>Grand Total</th>
+
+                        <th class="text-end">
+
+                            ₹ {{ "%.2f"|format(bill.grand) }}
+
+                        </th>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <div class="text-center mt-5">
+
+                <button class="btn btn-success" onclick="window.print()">
+
+                    <i class="fa-solid fa-print"></i>
+
+                    Print Invoice
+
+                </button>
+
+                <a href="/billing" class="btn btn-secondary">
+
+                    Back
+
+                </a>
+
+            </div>
+
+            <div class="text-center mt-5">
+
+                <hr>
+
+                <h5 class="text-warning">
+
+                    Thank You For Staying With Us!
+
+                </h5>
+
+                <p>
+
+                    Aurum Hotel<br>
+
+                    Luxury Beyond Expectations
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

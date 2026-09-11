@@ -1,0 +1,95 @@
+{% extends 'dashboard_layout.html' %}
+
+{% block title %}Rooms{% endblock %}
+
+{% block admin_content %}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between mb-3">
+        <h2>Room Management</h2>
+
+        <a href="/add_room" class="btn btn-success">
+            + Add Room
+        </a>
+        <div class="row mb-3">
+
+            <div class="col-md-5">
+
+                <form method="GET" action="/rooms">
+
+                    <div class="input-group">
+
+                        <input type="text" name="search" class="form-control"
+                            placeholder="Search by Room Number, Type or Status">
+
+                        <button class="btn btn-primary">
+
+                            Search
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+
+    <table class="table table-bordered table-hover">
+
+        <thead class="table-dark">
+
+            <tr>
+
+                <th>ID</th>
+                <th>Room No</th>
+                <th>Type</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Floor</th>
+                <th>Action</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for room in rooms %}
+
+            <tr>
+
+                <td>{{ room[0] }}</td>
+                <td>{{ room[1] }}</td>
+                <td>{{ room[2] }}</td>
+                <td>₹ {{ room[3] }}</td>
+                <td>{{ room[4] }}</td>
+                <td>{{ room[5] }}</td>
+
+                <td>
+
+                    <a href="/edit_room/{{ room[0] }}" class="btn btn-warning btn-sm">
+                        ✏ Edit
+                    </a>
+
+                    <a href="/delete_room/{{ room[0] }}" class="btn btn-danger btn-sm"
+                        onclick="return confirm('Are you sure you want to delete this room?')">
+                        🗑 Delete
+                    </a>
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

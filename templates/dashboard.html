@@ -1,0 +1,707 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+        background:url("{{ url_for('static', filename='images/hotel-banner.jpg') }}");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+
+    .overlay {
+        background: rgba(0, 0, 0, .70);
+        min-height: 100vh;
+        width: 100%;
+        padding: 35px;
+    }
+
+    .glass {
+        background: rgba(255, 255, 255, .12);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, .20);
+        border-radius: 20px;
+        color: white;
+        padding: 25px;
+        margin-bottom: 25px;
+        transition: .3s;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, .35);
+    }
+
+    .glass:hover {
+        transform: translateY(-5px);
+    }
+
+    .icon {
+        font-size: 45px;
+        color: #FFD700;
+    }
+
+    .stat {
+        font-size: 38px;
+        font-weight: bold;
+    }
+
+    .action-btn {
+        font-size: 18px;
+        font-weight: 600;
+        padding: 14px;
+    }
+
+    .table {
+        margin-bottom: 0;
+    }
+
+    canvas {
+        background: rgba(255, 255, 255, .05);
+        border-radius: 15px;
+        padding: 15px;
+    }
+</style>
+
+<div class="overlay">
+
+    <div class="container-fluid">
+
+        <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
+
+            <div>
+
+                <h1 class="text-white fw-bold display-5">
+
+                    🏨 Aurum Hotel
+
+                </h1>
+
+                <h4 class="text-warning">
+
+                    Hotel Management Dashboard
+
+                </h4>
+
+                <p class="text-light">
+
+                    Manage Customers • Rooms • Bookings • Billing
+
+                </p>
+
+            </div>
+
+            <div>
+
+                <a href="/logout" class="btn btn-danger btn-lg">
+
+                    <i class="fa-solid fa-right-from-bracket"></i>
+
+                    Logout
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <hr class="text-light">
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category if category != 'error' else 'danger' }} alert-dismissible fade show"
+            role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <div class="row g-4">
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="glass text-center">
+
+                    <i class="fa-solid fa-users icon"></i>
+
+                    <div class="stat mt-3">
+
+                        {{ data.customers }}
+
+                    </div>
+
+                    <h5>Customers</h5>
+
+                    <a href="/customers" class="btn btn-warning mt-3">
+
+                        Open
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="glass text-center">
+
+                    <i class="fa-solid fa-bed icon"></i>
+
+                    <div class="stat mt-3">
+
+                        {{ data.rooms }}
+
+                    </div>
+
+                    <h5>Rooms</h5>
+
+                    <a href="/rooms" class="btn btn-warning mt-3">
+
+                        Open
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="glass text-center">
+
+                    <i class="fa-solid fa-calendar-check icon"></i>
+
+                    <div class="stat mt-3">
+
+                        {{ data.bookings }}
+
+                    </div>
+
+                    <h5>Bookings</h5>
+
+                    <a href="/bookings" class="btn btn-warning mt-3">
+
+                        Open
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="glass text-center">
+
+                    <i class="fa-solid fa-money-bill-wave icon"></i>
+
+                    <div class="stat mt-3">
+
+                        ₹ {{ data.revenue }}
+
+                    </div>
+
+                    <h5>Revenue</h5>
+
+                    <a href="/billing" class="btn btn-warning mt-3">
+
+                        Open
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="row mt-2">
+
+            <div class="col-md-6">
+
+                <div class="glass text-center">
+
+                    <h4>
+
+                        🟢 Available Rooms
+
+                    </h4>
+
+                    <h1>
+
+                        {{ data.available }}
+
+                    </h1>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <div class="glass text-center">
+
+                    <h4>
+
+                        🔴 Booked Rooms
+
+                    </h4>
+
+                    <h1>
+
+                        {{ data.booked }}
+
+                    </h1>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <h3 class="text-white mt-4 mb-3">
+
+            ⚡ Quick Actions
+
+        </h3>
+
+        <div class="row g-3">
+
+            <div class="col-lg-3 col-md-6">
+
+                <a href="/add_customer" class="btn btn-success w-100 action-btn">
+
+                    ➕ Add Customer
+
+                </a>
+
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+
+                <a href="/add_room" class="btn btn-primary w-100 action-btn">
+
+                    🛏 Add Room
+
+                </a>
+
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+
+                <a href="/add_booking" class="btn btn-warning w-100 action-btn">
+
+                    📅 Add Booking
+
+                </a>
+
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+
+                <a href="/billing" class="btn btn-danger w-100 action-btn">
+
+                    💰 Billing
+
+                </a>
+
+            </div>
+
+        </div>
+        <!-- Charts -->
+
+        <div class="row mt-5">
+
+            <div class="col-lg-8">
+
+                <div class="glass">
+
+                    <h3 class="text-center mb-4">
+
+                        📊 Hotel Statistics
+
+                    </h3>
+
+                    <div style="height:350px;">
+
+                        <canvas id="hotelChart"></canvas>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4">
+
+                <div class="glass">
+
+                    <h3 class="text-center mb-4">
+
+                        🥧 Room Status
+
+                    </h3>
+
+                    <div style="height:350px;">
+
+                        <canvas id="roomChart"></canvas>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Recent Data -->
+
+        <div class="row mt-4">
+
+            <div class="col-lg-6">
+
+                <div class="glass">
+
+                    <h3 class="mb-4">
+
+                        <i class="fa-solid fa-clock-rotate-left text-warning"></i>
+
+                        Recent Bookings
+
+                    </h3>
+
+                    <table class="table table-dark table-hover table-bordered">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>ID</th>
+
+                                <th>Customer</th>
+
+                                <th>Room</th>
+
+                                <th>Status</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            {% for booking in recent %}
+
+                            <tr>
+
+                                <td>{{ booking[0] }}</td>
+
+                                <td>{{ booking[1] }}</td>
+
+                                <td>{{ booking[2] }}</td>
+
+                                <td>
+
+                                    {% if booking[3] == "Booked" %}
+
+                                    <span class="badge bg-success">
+
+                                        {{ booking[3] }}
+
+                                    </span>
+
+                                    {% else %}
+
+                                    <span class="badge bg-danger">
+
+                                        {{ booking[3] }}
+
+                                    </span>
+
+                                    {% endif %}
+
+                                </td>
+
+                            </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-6">
+
+                <div class="glass">
+
+                    <h3 class="mb-4">
+
+                        <i class="fa-solid fa-users text-warning"></i>
+
+                        Recent Customers
+
+                    </h3>
+
+                    <table class="table table-dark table-hover table-bordered">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>ID</th>
+
+                                <th>Name</th>
+
+                                <th>City</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            {% for customer in customers %}
+
+                            <tr>
+
+                                <td>{{ customer[0] }}</td>
+
+                                <td>{{ customer[1] }}</td>
+
+                                <td>{{ customer[2] }}</td>
+
+                            </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <hr class="text-light mt-5">
+
+        <div class="text-center text-light">
+
+            <h5>
+
+                © 2026 Aurum Hotel Management System
+
+            </h5>
+
+            <p>
+
+                Developed using Flask • Python • MySQL • Bootstrap 5
+
+            </p>
+
+        </div>
+        <script>
+
+            const customers = Number("{{ data.customers }}");
+            const rooms = Number("{{ data.rooms }}");
+            const bookings = Number("{{ data.bookings }}");
+            const available = Number("{{ data.available }}");
+            const booked = Number("{{ data.booked }}");
+
+            // Bar Chart
+
+            new Chart(document.getElementById("hotelChart"), {
+
+                type: "bar",
+
+                data: {
+
+                    labels: [
+
+                        "Customers",
+
+                        "Rooms",
+
+                        "Bookings"
+
+                    ],
+
+                    datasets: [{
+
+                        label: "Hotel Statistics",
+
+                        data: [
+
+                            customers,
+
+                            rooms,
+
+                            bookings
+
+                        ],
+
+                        backgroundColor: [
+
+                            "#FFD700",
+
+                            "#0dcaf0",
+
+                            "#198754"
+
+                        ],
+
+                        borderRadius: 10
+
+                    }]
+
+                },
+
+                options: {
+
+                    responsive: true,
+
+                    maintainAspectRatio: false,
+
+                    plugins: {
+
+                        legend: {
+
+                            labels: {
+
+                                color: "white"
+
+                            }
+
+                        }
+
+                    },
+
+                    scales: {
+
+                        x: {
+
+                            ticks: {
+
+                                color: "white"
+
+                            },
+
+                            grid: {
+
+                                color: "rgba(255,255,255,.10)"
+
+                            }
+
+                        },
+
+                        y: {
+
+                            beginAtZero: true,
+
+                            ticks: {
+
+                                color: "white"
+
+                            },
+
+                            grid: {
+
+                                color: "rgba(255,255,255,.10)"
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            });
+
+
+            // Doughnut Chart
+
+            new Chart(document.getElementById("roomChart"), {
+
+                type: "doughnut",
+
+                data: {
+
+                    labels: [
+
+                        "Available",
+
+                        "Booked"
+
+                    ],
+
+                    datasets: [{
+
+                        data: [
+
+                            available,
+
+                            booked
+
+                        ],
+
+                        backgroundColor: [
+
+                            "#28a745",
+
+                            "#dc3545"
+
+                        ],
+
+                        borderWidth: 2,
+
+                        borderColor: "#fff"
+
+                    }]
+
+                },
+
+                options: {
+
+                    responsive: true,
+
+                    maintainAspectRatio: false,
+
+                    plugins: {
+
+                        legend: {
+
+                            position: "bottom",
+
+                            labels: {
+
+                                color: "white"
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            });
+
+        </script>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - Aurum Hotel{% endblock %}
+
+{% block content %}
+<!-- Top Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm py-2">
+    <div class="container-fluid px-4">
+        <a class="navbar-brand fw-bold text-warning" href="/dashboard">
+            <i class="fa-solid fa-hotel me-2"></i>AURUM HOTEL
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#adminNavbar"
+            aria-controls="adminNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="adminNavbar">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/dashboard"><i class="fa-solid fa-gauge me-1"></i> Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/customers"><i class="fa-solid fa-users me-1"></i> Customers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/rooms"><i class="fa-solid fa-bed me-1"></i> Rooms</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/bookings"><i class="fa-solid fa-calendar-check me-1"></i> Bookings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/billing"><i class="fa-solid fa-file-invoice-dollar me-1"></i> Billing</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/reports"><i class="fa-solid fa-chart-line me-1"></i> Reports</a>
+                </li>
+            </ul>
+            <div class="d-flex align-items-center">
+                <span class="text-light me-3">
+                    <i class="fa-solid fa-circle-user text-warning me-1"></i>
+                    {{ session.get('admin', 'Admin') }}
+                </span>
+                <a href="/logout" class="btn btn-outline-danger btn-sm">
+                    <i class="fa-solid fa-right-from-bracket me-1"></i> Logout
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Flash Alerts Container -->
+<div class="container mt-3">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category if category != 'error' else 'danger' }} alert-dismissible fade show shadow-sm"
+        role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+</div>
+
+<!-- Main Sub-Content -->
+<div class="py-2">
+    {% block admin_content %}
+    {% endblock %}
+</div>
+{% endblock %}
