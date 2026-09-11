@@ -158,3 +158,39 @@ hotel-management-system-flask-main/
 └── static/
     ├── css/               # Stylesheets
     └── images/            # Static images
+
+---
+
+## 📸 Screenshots
+
+### 🔐 Login
+
+![Login](screenshots/login.png)
+
+### 📊 Dashboard
+
+![Dashboard](screenshots/dashboard.png)
+
+### 👥 Customer Management
+
+![Customers](screenshots/customers.png)
+
+### 🏨 Room Management
+
+![Rooms](screenshots/rooms.png)
+
+### 📅 Booking Management
+
+![Bookings](screenshots/bookings.png)
+
+### 💰 Billing
+
+![Billing](screenshots/billing.png)
+
+### 🧾 Invoice
+
+![Invoice](screenshots/invoice.png)
+
+### 📈 Reports
+
+![Reports](screenshots/reports.png)
