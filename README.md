@@ -1,4 +1,4 @@
-
+project host link: https://hotel-management-system-hjwu.onrender.com
 # 🏨 Aurum Hotel Management System
 
 A web-based **Hotel Management System** built with **Python, Flask, MySQL, Bootstrap 5, HTML, CSS, and JavaScript**.
